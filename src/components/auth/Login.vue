@@ -9,8 +9,9 @@
 					</span>
 					
 					<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
-						<input id="first-name" class="input100" v-model="user.email" type="text" placeholder="email">
+						<input id="first-name" class="input100" name="email" v-validate="{ required: true, email: true, regex: /[0-9]+/ }" v-model="user.email" type="text" placeholder="email">
 						<span class="focus-input100"></span>
+                        <span>{{ errors.first('email') }}</span>
 					</div>
 					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
 						<input class="input100" type="password" v-model="user.password" placeholder="Password">
@@ -48,7 +49,7 @@
     </div>
 </template>
 <script>
-import login from '../../mixins/login.js'
+import login from '../../mixins/toast.js'
 import {mapState,mapActions} from 'vuex'
 import {loginUrl, userUrl} from '../../config'
     export default{
@@ -86,12 +87,16 @@ import {loginUrl, userUrl} from '../../config'
                                this.$router.push({name:'welcome'})
                           })
                           }
-                    }).catch((error)=>{Promise.reject(error.data)})
-                }).catch((error) => {console.log('something went wrong')})
+                    }).catch((error)=>{
+                        this.$Progress.fail()
+                        Promise.reject(error.data)})
+                }).catch((error) => {
+                     this.$Progress.fail()
+                    console.log('something went wrong')})
             }
         },
         created(){
-           
+            this.$toast.show('Login Page', 'Admin', this.notificationSystem.options.show);
         }
 
     }

@@ -11,8 +11,9 @@
 export default {
   name: 'App',
   created(){
-     this.$Progress.start()
+     
   }
 }
+ 
 </script>
 

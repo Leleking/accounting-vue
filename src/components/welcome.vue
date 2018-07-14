@@ -1,6 +1,6 @@
 <template>
     <div>
-        Welcome {{username}} to YsE
+        Welcome {{username}} to YsE Accounting
     </div>
 </template>
 <script>
