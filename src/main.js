@@ -10,6 +10,8 @@ import {getHeader,loginUrl} from './config'
 import VueResource from 'vue-resource'
 import VueProgressBar from 'vue-progressbar'
 import VueIziToast from 'vue-izitoast';
+import vbclass from 'vue-body-class'
+Vue.use( vbclass, router )
 
 import 'izitoast/dist/css/iziToast.css'
 
@@ -34,8 +36,10 @@ Vue.http.interceptors.push(function(request, next) {
   request.headers.set('Authorization', header.Authorization)
   request.headers.set('Accept' ,header.Accept)
   next()
+  this.$Progress.finish()
   }
   next()
+  this.$Progress.finish()
 })
 
 /* eslint-disable no-new */

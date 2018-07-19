@@ -1,7 +1,17 @@
 <template>
-    <div>
-        Welcome {{username}} to YsE Accounting
+   
+      
+
+ <div class="page">
+      <div class="page-content">
+        <h2>Bla</h2>
+        <p>Page content goes here <router-link to='/dayBook/salesDayBook'>click</router-link></p>
+        <p><a href="" @click.prevent="alert()">some</a></p>
+      </div>
     </div>
+    <!-- Page -->
+    
+    
 </template>
 <script>
 import {mapState} from 'vuex'

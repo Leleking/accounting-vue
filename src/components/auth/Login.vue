@@ -1,52 +1,55 @@
 <template>
-    <div>
-      <div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form" @submit.prevent="">
-					<span class="login100-form-title p-b-34">
-					<router-link to="/" >Account Login</router-link>	
-					</span>
-					
-					<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
-						<input id="first-name" class="input100" name="email" v-validate="{ required: true, email: true, regex: /[0-9]+/ }" v-model="user.email" type="text" placeholder="email">
-						<span class="focus-input100"></span>
-                        <span>{{ errors.first('email') }}</span>
-					</div>
-					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
-						<input class="input100" type="password" v-model="user.password" placeholder="Password">
-						<span class="focus-input100"></span>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<button @click="login" class="login100-form-btn">
-							Login
-						</button>
-					</div>
+   
 
-					<div class="w-full text-center p-t-27 p-b-239">
-						<span class="txt1">
-							Forgot
-						</span>
+   <div>
+         <div class="page" data-animsition-in="fade-in" data-animsition-out="fade-out">
+      <div class="page-content">
+        <div class="page-brand-info">
+          <div class="brand">
+            <img class="brand-img" src="/static/assets/images/logo@2x.png" alt="...">
+            <h2 class="brand-text font-size-40">KEYSTAMP</h2>
+          </div>
+          <p class="font-size-20">Generate all kinds of reports</p>
+        </div>
 
-						<a href="#" class="txt2">
-							User name / password?
-						</a>
-					</div>
+        <div class="page-login-main">
+          <div class="brand hidden-md-up">
+            <img class="brand-img" src="/static/assets/images/logo-colored@2x.png" alt="...">
+            <h3 class="brand-text font-size-40">KEYSTAMP</h3>
+          </div>
+          <h3 class="font-size-24">LOGIN</h3>
+          <p>Login with your email and password to access KEYSTAMP</p>
 
-					<div class="w-full text-center">
-						<a href="#" class="txt3">
-							Sign Up
-						</a>
-					</div>
-				</form>
+          
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="email" v-model="user.email" class="form-control empty" id="inputEmail" name="email">
+              <label class="floating-label" for="inputEmail">Email</label>
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="password" v-model="user.password" class="form-control empty" id="inputPassword" name="password">
+              <label class="floating-label" for="inputPassword">Password</label>
+            </div>
+            <div class="form-group clearfix">
+              <div class="checkbox-custom checkbox-inline checkbox-primary float-left">
+                <input type="checkbox" id="remember" name="checkbox">
+                <label for="inputCheckbox">Remember me</label>
+              </div>
+              <a class="float-right" href="forgot-password.html">Forgot password?</a>
+            </div>
+            <button @click="login()" class="btn btn-primary btn-block">LOGIN</button>
+      
 
-				<div class="login100-more" style="background-image: url('/static/images/accounting.jpg');"></div>
-			</div>
-		</div>
-	</div>
-	<div id="dropDownSelect1"></div>
+        
+
+          <span style="padding-bottom:300px"></span>
+        </div>
+
+      </div>
     </div>
+   </div>
+    <!-- Page -->
+ 
+
 </template>
 <script>
 import login from '../../mixins/toast.js'
@@ -96,47 +99,9 @@ import {loginUrl, userUrl} from '../../config'
             }
         },
         created(){
-            this.$toast.show('Login Page', 'Admin', this.notificationSystem.options.show);
+           // this.$toast.show('Login Page', 'Admin', this.notificationSystem.options.show);
         }
 
     }
 </script>
-<style scoped>
-/* Split the screen in half */
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-
-/* Control the left side */
-.left {
-  left: 0;
-  background-color: #111;
-}
-
-/* Control the right side */
-.right {
-  right: 0;
-  background-color: red;
-}
-
-/* If you want the content centered horizontally and vertically */
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-/* Style the image inside the centered container, if needed */
-.centered img {
-  width: 150px;
-  border-radius: 50%;
-}
-</style>
+  <style src="../../assets/css/login-v2.css"></style>

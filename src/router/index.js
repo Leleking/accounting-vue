@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import store from '../store'
 import {routes} from './routes'
 Vue.use(Router)
 
@@ -13,8 +13,11 @@ router.beforeEach((to,from,next) =>{
     if(JSON.parse(window.localStorage.getItem('authUser'))){
   const authUser = JSON.parse(window.localStorage.getItem('authUser'))
   if(authUser && authUser.access_token){
+   
     store.dispatch('setUserObject',authUser)
     next()
+    
+    
   }
 }else{
   next({name:'Login'})

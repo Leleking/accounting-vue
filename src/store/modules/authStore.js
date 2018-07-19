@@ -21,6 +21,9 @@ const mutations ={
         scope:''
         }
     },
+    UNSET_AUTH_USER(state){
+        state.authUser = ''
+    }
 }
 const actions = {
     setUserObject:({commit},userObj) => {
@@ -29,6 +32,10 @@ const actions = {
     validateUser:({commit},user) => {
         return commit('HANDLE_LOGIN_SUBMIT',user)
     },
+    unsetUserObject: ({commit}) => {
+        commit('UNSET_AUTH_USER')
+        window.localStorage.removeItem('authUser')
+    }
 }
 export default{
     state,mutations,actions
