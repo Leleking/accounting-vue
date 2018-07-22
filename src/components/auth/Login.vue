@@ -85,6 +85,7 @@ import {loginUrl, userUrl} from '../../config'
                           this.$http.get(userUrl).then((response) => {
                               authUser.email = response.body.email
                                authUser.name = response.body.name
+                               authUser.id =   response.body.id
                                window.localStorage.setItem('authUser',JSON.stringify(authUser))
                                this.$store.dispatch('setUserObject',authUser)
                                this.$router.push({name:'welcome'})

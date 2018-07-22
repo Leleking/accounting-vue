@@ -1,34 +1,75 @@
-<template>
-  <div>
-     <div class="page">
-      <div class="page-header">
-        <h1 class="page-title">{{this.$route.name}}</h1>
-        <div class="page-header-actions">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Tables</a></li>
-            <li class="breadcrumb-item active">Basic</li>
-          </ol>
-        </div>
-      </div>
-      <!-- Panel Table Example1 Report -->
-      <div class="row">
+
+      <template>
+        <div class="row">
         <div class="col-md-4">
-          test
+          <div class="panel" id="exampleReport">
+          <div class="panel-body">
+            <div class="panel-heading">
+              <h4 class="panel-title">Add Sale</h4>
+            </div>
+            <div class="example-wrap">
+              <div class="example">
+                <div class="row">
+                  <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Item</label>
+                                <input class="form-control" type="text" v-model="postData.item" value="" placeholder="Item">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Date</label>
+                                <input class="form-control" type="date" v-model="postData.date_added" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Units</label>
+                                <input class="form-control" v-validate="'required'" type="number" v-model="postData.units" name="units" value="" placeholder="item">
+                                <span>{{ errors.first('units') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Amount</label>
+                                 <input class="form-control" v-validate="'required'" type="text" v-model="postData.amount" name="amount" value="" placeholder="amount">
+                                <span>{{ errors.first('amount') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Details</label>
+                                <textarea  class="form-control" type="text" v-model="postData.details" value="" placeholder="details"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" @click="postDaybookData(sales)">Submit</button>
+                      </div>
+                  </form>
+                </div>
+               </div>
+            </div>
+          </div>
+        </div>
         </div>
         <div class="col-md-8">
         <div class="panel" id="exampleReport">
           <div class="panel-body">
             <div class="panel-heading">
-              <h4 class="panel-title">23 Reports</h4>
+              <h4 class="panel-title">Recent transactions</h4>
               <div class="panel-actions">
                 <a class="panel-action icon md-edit" data-toggle="tooltip" data-original-title="edit"
                   data-container="body" title=""></a>
                 <a class="panel-action icon md-mail-reply" data-toggle="tooltip" data-original-title="send"
                   data-container="body" title=""></a>
                 <a class="panel-action icon md-delete" data-toggle="tooltip" data-original-title="move to trash"
-                  data-container="body" title=""></a>
-                <a class="panel-action icon md-account" data-toggle="tooltip" data-original-title="uesrs"
                   data-container="body" title=""></a>
               </div>
             </div>
@@ -45,161 +86,64 @@
                           </span>
                         </th>
                         <th>
-                          Name
+                          Items
                         </th>
                         <th>
-                          Description
+                          Amount
                         </th>
                         <th>
-                          <i class="icon md-favorite" aria-hidden="true"></i>
+                         Details <i class="icon md-comment" aria-hidden="true"></i>
                         </th>
                         <th>
-                          <i class="icon md-comment" aria-hidden="true"></i>
+                          Units
                         </th>
                         <th>
-                          Date Created
+                          Date
                         </th>
-                        <th></th>
+                        <th><a class="panel-action icon md-account" data-toggle="tooltip" data-original-title="uesrs"
+                  data-container="body" title=""></a> User</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
+                    
+                        <td colspan="8" v-show="loading">
+                              <div class="example-loading example-well h-150 vertical-align text-center">
+                                <div class="loader vertical-align-middle loader-cube-grid"></div>
+                              </div>
+                        </td>
+                        
+                      </tr>
+                      <tr v-for="sale in recentData ">
                         <td>
                           <span class="checkbox-custom checkbox-primary">
                             <input class="selectable-item" type="checkbox">
                             <label></label>
                           </span>
                         </td>
-                        <td><a href="javascript:void(0)">Last quarter revene</a>
+                        <td><a href="javascript:void(0)">{{sale.item}}</a>
                           <i
                             class="icon md-help ml-10 red-600" aria-hidden="true"
                             data-toggle="tooltip" data-original-title="help" data-container="body"
                             title=""></i>
                         </td>
-                        <td>Revene for last quarter in state America for year 2013,
-                          whith...</td>
+                        <td>GHC{{sale.amount}}</td>
                         <td>
-                          <i class="icon md-favorite" aria-hidden="true"><span class="ml-5">5</span></i>
+                        <span class="ml-5">{{sale.details}}</span></i>
                         </td>
                         <td>
-                          <i class="icon md-comment" aria-hidden="true"><span class="ml-5">22</span></i>
+                        <span class="ml-5">{{sale.units}}</span></i>
                         </td>
                         <td>
-                          <span>6 minets ago</span>
-                          <i class="icon md-time ml-10" aria-hidden="true"></i>
+                          <span>{{sale.date_added}}</span>
                         </td>
                         <td>
-                          <img class="avatar avatar-sm" src="assets/portraits/1.jpg" data-toggle="tooltip"
-                            data-original-title="Crystal Bates" data-container="body"
-                            title="">
+                          {{sale.user}}
                         </td>
+                        <td>action</td>
                       </tr>
-                      <tr>
-                        <td>
-                          <span class="checkbox-custom checkbox-primary">
-                            <input class="selectable-item" type="checkbox">
-                            <label></label>
-                          </span>
-                        </td>
-                        <td><a href="javascript:void(0)">Expenses in 2013</a><i class="icon md-help ml-10 primary-600"
-                            aria-hidden="true" data-toggle="tooltip" data-original-title="help"
-                            data-container="body" title=""></i></td>
-                        <td>Revene for last quarter in state America.</td>
-                        <td>
-                          <i class="icon md-favorite" aria-hidden="true"><span class="ml-5">8</span></i>
-                        </td>
-                        <td>
-                          <i class="icon md-comment" aria-hidden="true"><span class="ml-5">15</span></i>
-                        </td>
-                        <td>
-                          <span>2 hourss ago</span>
-                          <i class="icon md-time ml-10" aria-hidden="true"></i>
-                        </td>
-                        <td>
-                          <img class="avatar avatar-sm" src="/static/assets/portraits/2.jpg" data-toggle="tooltip"
-                            data-original-title="Maxime" data-container="body" title="">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span class="checkbox-custom checkbox-primary">
-                            <input class="selectable-item" type="checkbox">
-                            <label></label>
-                          </span>
-                        </td>
-                        <td><a href="javascript:void(0)">Accounting </a><i class="icon md-help ml-10 green-600"
-                            aria-hidden="true" data-toggle="tooltip" data-original-title="help"
-                            data-container="body" title=""></i></td>
-                        <td>Text example here lorem ipsum</td>
-                        <td>
-                          <i class="icon md-favorite" aria-hidden="true"><span class="ml-5">2</span></i>
-                        </td>
-                        <td>
-                          <i class="icon md-comment" aria-hidden="true"><span class="ml-5">36</span></i>
-                        </td>
-                        <td>
-                          <span>5 hours ago</span>
-                          <i class="icon md-time ml-10" aria-hidden="true"></i>
-                        </td>
-                        <td>
-                          <img class="avatar avatar-sm" src="/static/assets/portraits/3.jpg" data-toggle="tooltip"
-                            data-original-title="Hammes" data-container="body" title="">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span class="checkbox-custom checkbox-primary">
-                            <input class="selectable-item" type="checkbox">
-                            <label></label>
-                          </span>
-                        </td>
-                        <td><a href="javascript:void(0)">Srtarbucks orders</a><i class="icon md-help ml-10 blue-600"
-                            aria-hidden="true" data-toggle="tooltip" data-original-title="help"
-                            data-container="body" title=""></i></td>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>
-                          <i class="icon md-favorite" aria-hidden="true"><span class="ml-5">4</span></i>
-                        </td>
-                        <td>
-                          <i class="icon md-comment" aria-hidden="true"><span class="ml-5">31</span></i>
-                        </td>
-                        <td>
-                          <span>12 hours ago</span>
-                          <i class="icon md-time ml-10" aria-hidden="true"></i>
-                        </td>
-                        <td>
-                          <img class="avatar avatar-sm" src="/static/assets/portraits/4.jpg" data-toggle="tooltip"
-                            data-original-title="Air Conditioner" data-container="body"
-                            title="">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span class="checkbox-custom checkbox-primary">
-                            <input class="selectable-item" type="checkbox">
-                            <label></label>
-                          </span>
-                        </td>
-                        <td><a href="javascript:void(0)">In Progress</a><i class="icon md-help ml-10 orange-600"
-                            aria-hidden="true" data-toggle="tooltip" data-original-title="help"
-                            data-container="body" title=""></i></td>
-                        <td>Lorem ipsum dolor sit amet</td>
-                        <td>
-                          <i class="icon md-favorite" aria-hidden="true"><span class="ml-5">5</span></i>
-                        </td>
-                        <td>
-                          <i class="icon md-comment" aria-hidden="true"><span class="ml-5">18</span></i>
-                        </td>
-                        <td>
-                          <span>3 days ago</span>
-                          <i class="icon md-time ml-10" aria-hidden="true"></i>
-                        </td>
-                        <td>
-                          <img class="avatar avatar-sm" src="/static/assets/portraits/5.jpg" data-toggle="tooltip"
-                            data-original-title="Milk Powder" data-container="body"
-                            title="">
-                        </td>
-                      </tr>
+                     
                     </tbody>
                   </table>
                 </div>
@@ -209,23 +153,25 @@
         </div>
         </div>
       </div>
-        <!-- End Panel Table Example1 Report-->
-    <!-- End Page -->
-     </div>
-  </div>
 </template>
-
 <script>
-import rightAside from './aside/rightAside'
-    export default{
-      components:{
-        rightAside
-      },
-      data(){
-        return{
-          componentId:""
 
-        }
+
+import {toast,dayBookMixin} from '../../mixins/'
+import {getSales} from '../../config'
+export default{
+    data(){
+      return{
+        sales:getSales,
       }
+    },
+    mixins:[dayBookMixin,toast],
+    created(){
+      this.getRecentData(getSales);
+      
     }
+    
+  }
 </script>
+      
+      

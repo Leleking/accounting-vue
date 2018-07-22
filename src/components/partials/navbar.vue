@@ -163,17 +163,17 @@
                     </router-link>
                   </li>
                    <li class="site-menu-item active">
-                    <router-link to="/dayBook/salesDayBook">
+                    <router-link to="/dayBook/purchasesDayBook">
                       <span class="site-menu-title">Purchases Day Book</span>
                     </router-link>
                   </li>
                    <li class="site-menu-item active">
-                    <router-link to="/dayBook/salesDayBook">
+                    <router-link to="/dayBook/salesReturns">
                       <span class="site-menu-title">Sales Returns</span>
                     </router-link>
                   </li>
                    <li class="site-menu-item active">
-                    <router-link to="/dayBook/salesDayBook">
+                    <router-link to="/dayBook/purchasesReturns">
                       <span class="site-menu-title">Purchases Returns</span>
                     </router-link>
                   </li>

@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <navbar v-show="navR"></navbar>
-    
-    <router-view/>
+     <transition appear name="custom-classes-transition" enter-active-class="animated fadeIn">
+    <router-view></router-view>
+  </transition>
     <keyfooter v-show="navR"></keyfooter>
-    
   </div>
 </template>
 
