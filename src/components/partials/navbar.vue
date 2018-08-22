@@ -17,11 +17,7 @@
           <img class="navbar-brand-logo" src="/static/assets/images/logo.png" title="Remark">
           <span class="navbar-brand-text hidden-xs-down"> Keystamp</span>
         </div>
-        <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
-          data-toggle="collapse">
-          <span class="sr-only">Toggle Search</span>
-          <i class="icon md-search" aria-hidden="true"></i>
-        </button>
+      
       </div>
     
       <div class="navbar-container container-fluid">
@@ -70,7 +66,7 @@
                 <a class="dropdown-item" role="menuitem" @click.prevent="logout()"><i class="icon md-power"  aria-hidden="true"></i> Logout</a>
               </div>
             </li>
-            <li class="nav-item dropdown">
+            <li v-show="navL" class="nav-item dropdown">
               <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" title="Notifications"
                 aria-expanded="false" data-animation="scale-up" role="button">
                 <i class="icon md-notifications" aria-hidden="true"></i>
@@ -99,14 +95,14 @@
                 </div>
               </div>
             </li>
-           
+            
         
           </ul>
           <!-- End Navbar Toolbar Right -->
     
           <div class="navbar-brand navbar-brand-center">
             <router-link to="/">
-            <span class="navbar-brand-logo navbar-brand-logo-normal" style="color:white">KEYSTAMP</span>
+            <span class="navbar-brand-logo navbar-brand-logo-normal" style="color:white">{{loader}}</span>
             <!--
               <img class="navbar-brand-logo navbar-brand-logo-normal" src="/static/assets/images/logo.png"
                 title="Remark">
@@ -122,7 +118,7 @@
        
         <!-- End Site Navbar Seach -->
       </div>
-    </nav>   
+   </nav>   
     <div class="site-menubar">
       <div class="site-menubar-header">
         <div class="cover overlay">
@@ -134,7 +130,7 @@
                 <img src="/static/assets/portraits/1.jpg" alt="">
               </a>
               <div class="site-menubar-info">
-                <h5 class="site-menubar-user">{{user.name}}</h5>
+                <h5 class="site-menubar-user" v-on:click="tester()">{{user.name}}</h5>
                 <p class="site-menubar-email">{{user.email}}</p>
               </div>
             </div>
@@ -180,6 +176,48 @@
                 </ul>
              
               </li>
+              <li class="site-menu-item">
+                <router-link  :to="{name:'cashBook'}">
+              <i class="site-menu-icon md-puzzle-piece" aria-hidden="true"></i>                        
+                        <span class="site-menu-title">CashBook</span>
+                    </router-link>
+              </li>
+               <li class="site-menu-item has-sub active open">
+                <a href="javascript:void(0)">
+                        <i class="site-menu-icon md-border-all" aria-hidden="true"></i>
+                        <span class="site-menu-title">Awaiting Name</span>
+                                <span class="site-menu-arrow"></span>
+                    </a>
+                <ul class="site-menu-sub">
+                  <li class="site-menu-item active">
+                    <router-link to="/dayBook/salesDayBook">
+                      <span class="site-menu-title">Creditors</span>
+                    </router-link>
+                  </li>
+                   <li class="site-menu-item active">
+                    <router-link to="/dayBook/purchasesDayBook">
+                      <span class="site-menu-title">Debtors</span>
+                    </router-link>
+                  </li>
+                   <li class="site-menu-item active">
+                    <router-link to="/dayBook/salesReturns">
+                      <span class="site-menu-title">Operating Revenue</span>
+                    </router-link>
+                  </li>
+                   <li class="site-menu-item active">
+                    <router-link to="/dayBook/purchasesReturns">
+                      <span class="site-menu-title">Operating Expenses</span>
+                    </router-link>
+                  </li>
+                </ul>
+             
+              </li>
+               <li class="site-menu-item">
+                <router-link  :to="{name:'welcome'}">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title">SOCI</span>
+                    </router-link>
+              </li>
              
             </ul>      
             </div>
@@ -190,25 +228,35 @@
 </div>
 </template>
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
     export default{
         data(){
             return{
                 user:{
                     name:'',
                     email:''
-                }
+                },
             }
         },
         computed:{
             ...mapState({
-                 authStore : state => state.authStore
-            })
+                 authStore : state => state.authStore,
+                 routeStore: state => state.routeStore
+            }),
+            ...mapGetters({
+              loader: 'getLoading'
+            }),
+            navL(){
+              return this.loader
+             }
         },
         methods:{
             logout(){
                 this.$store.dispatch('unsetUserObject')
                 this.$router.push({name:'Login'})
+            },
+            tester(){
+              this.$store.dispatch('setLoading',false)
             }
         },
         created(){

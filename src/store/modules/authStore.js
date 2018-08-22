@@ -7,6 +7,11 @@ const state = {
 
     }
 }
+const getters= {
+    routeLoad: state => {
+      return state.authUser;
+    }
+}
 const mutations ={
     SET_AUTH_USER(state,userObj){
         state.authUser = userObj
@@ -38,5 +43,5 @@ const actions = {
     }
 }
 export default{
-    state,mutations,actions
+    state,mutations,actions,getters
 }

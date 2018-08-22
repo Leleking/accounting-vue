@@ -1,6 +1,6 @@
 
       <template>
-        <div class="row">
+      <div class="row">
         <div class="col-md-4">
           <div class="panel" id="exampleReport">
           <div class="panel-body">
@@ -14,30 +14,32 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Item</label>
-                                <input class="form-control" type="text" v-model="postData.item" value="" placeholder="Item">
+                                <label class="control-label">Item<span style="color:red">*</span></label>
+                                <input class="form-control" type="text" name="item" v-model="postData.item" v-validate="'required'" value="" placeholder="Item">
+                                <span style="color:red"><small>{{ errors.first('item') }}</small></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Date</label>
-                                <input class="form-control" type="date" v-model="postData.date_added" value="">
+                                <label class="control-label">Date<span style="color:red">*</span></label>
+                                <input class="form-control" type="date" v-validate="'required'"  name="date" v-model="postData.date_added" value="">
+                                <span style="color:red"><small>{{ errors.first('date') }}</small></span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Units</label>
-                                <input class="form-control" v-validate="'required'" type="number" v-model="postData.units" name="units" value="" placeholder="item">
-                                <span>{{ errors.first('units') }}</span>
+                                <label class="control-label">Units<span style="color:red">*</span></label>
+                                <input class="form-control" v-validate="'required'"  type="number" v-model="postData.units" name="units" value="1" placeholder="item">
+                                <span style="color:red"><small>{{ errors.first('units') }}</small></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Amount</label>
+                                <label class="control-label">Amount<span style="color:red">*</span></label>
                                  <input class="form-control" v-validate="'required'" type="text" v-model="postData.amount" name="amount" value="" placeholder="amount">
-                                <span>{{ errors.first('amount') }}</span>
+                                <span style="color:red"><small>{{ errors.first('amount') }}</small></span>
                             </div>
                         </div>
                     </div>
@@ -141,7 +143,12 @@
                         <td>
                           {{sale.user}}
                         </td>
-                        <td>action</td>
+                        <td> <a class="panel-action icon md-edit" data-toggle="tooltip" data-original-title="edit"
+                  data-container="body" title=""></a>
+                <a class="panel-action icon md-mail-reply" data-toggle="tooltip" data-original-title="send"
+                  data-container="body" title=""></a>
+                <a class="panel-action icon md-delete" data-toggle="tooltip" data-original-title="move to trash"
+                  data-container="body" title=""></a></td>
                       </tr>
                      
                     </tbody>
@@ -152,7 +159,7 @@
           </div>
         </div>
         </div>
-      </div>
+       </div>
 </template>
 <script>
 

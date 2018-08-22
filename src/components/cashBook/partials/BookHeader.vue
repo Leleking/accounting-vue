@@ -5,7 +5,7 @@
         <div class="page-header-actions">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Day Book</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">CashBook</a></li>
             <li class="breadcrumb-item active">{{this.$route.name}}</li>
             <li>
               <button type="button" class="btn btn-sm btn-icon btn-primary btn-round" data-target="#settingsSidebar" data-toggle="modal"

@@ -6,9 +6,10 @@ import salesDayBook from '@/components/dayBook/salesDayBook'
 import purchasesDayBook from '@/components/dayBook/purchasesDayBook'
 import salesReturns from '@/components/dayBook/salesReturns'
 import purchasesReturns from '@/components/dayBook/purchasesReturns'
+import cashBook from '@/components/cashBook'
 export const routes = [
     {path: '/',name: 'welcome',component: welcome,meta:{requiresAuth:true}},
-   
+    {path: '/cashBook',name: 'cashBook',component: cashBook,meta:{requiresAuth:true}},
     {path: '/dayBook',component:DayBook,meta:{requiresAuth:true},children:[
         {path:'salesDayBook',component:salesDayBook,name:'salesDayBook'},
         {path:'purchasesDayBook',component:purchasesDayBook,name:'purchasesDayBook'},
